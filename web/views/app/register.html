@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/output.css">
+    <title>register</title>
+    <style>
+        input{
+            border: 1px solid lightgray;
+            width: 100%;
+            height: 45px;
+            border-radius: 10px;
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+      input::placeholder{
+          font-size: medium;
+         
+          font-weight: 300;
+      }
+      a:hover{
+          text-decoration: underline;
+      }
+    </style>
+</head>
+<body>
+   <h1 class="text-3xl text-center mt-16 font-bold text-gray-500">K-wD</h1>
+   <div class="register-wrapper mt-10 w-3/12 mx-auto h-2/4 border border-gray-300 rounded-lg pb-5">
+       <h1 class="text-center font-medium my-6 text-xl text-gray-700 ">Register</h1>
+       {{if .error}}
+    <div class="w-11/12 mx-auto rounded-lg mb-4">
+        <div class="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3" role="alert">
+           
+
+            <p>{{ .message }}</p>
+        </div>
+    </div>
+    {{end}}
+       <div class="mx-auto w-11/12">
+           <form action="" method="post" >
+               <input type="text" name="firstname" id="" class="mt-0" placeholder="First Name">
+               <input type="text" name="lastname" id="" placeholder="Last Name">
+               <input type="text" name="username" id="" placeholder="Username">
+               <input type="email" name="email" id="" placeholder="Email">
+               <input type="password" name="password" id="" placeholder="Password">
+               <div class="flex my-5 ml-2">
+               <input type="checkbox" name="toggle" id="" class="w-5 -mt-1">
+               <span class="text-md ml-5 mt-1">I accept the <span class="text-blue-600"><a>Terms and Conditions</a> </span></span>
+            </div>
+               <button type="submit" name="submit" class="bg-blue-500 text-white mb-5 rounded-lg w-full h-10">Register</button>
+           </form>
+           <span class="text-sm">Already have an account?<span class="text-blue-600"> <a href="#">Login</a></span></span>
+       </div>
+   </div>
+</body>
+</html>

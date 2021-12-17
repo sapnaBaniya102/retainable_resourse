@@ -1,0 +1,26 @@
+server:
+    name: "awesomeProject"
+    version: "awesomeProject"
+    host: "0.0.0.0"
+    port: 8083
+    mode: "live"
+    path: "live"
+    exec_path: "live"
+    url: "http://localhost:8080"
+    key: "tN3XSDHWF8ZPOERtQRnkVMZYHgghteT7"
+    env: "dev"
+    currency: "USD"
+    debug: true
+
+view:
+    path: "web/views"
+    extension: ".html"
+    assets_path: "web/dist"
+
+cache:
+    driver: "redis"
+    name: "redis-cache"
+    password:
+    host: "localhost"
+    port: 6379
+    db: ""
