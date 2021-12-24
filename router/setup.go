@@ -8,5 +8,5 @@ var USER fiber.Router
 func SetUpRoutes(app *fiber.App) {
 	api := app.Group("/api")
 	USER = api.Group("/user")
-	SetupUserRoutes()
+	// SetupUserRoutes()
 }

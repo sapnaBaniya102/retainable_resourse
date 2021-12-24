@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS user_profiles
 id int8 NOT NULL DEFAULT nextval('user_profiles_id_seq'::regclass) PRIMARY KEY, 
 firstname varchar(150),
 lastname varchar(200),
-email varchar(250),
+username varchar(200),
+
 status varchar(50),
 
 is_active bool default false,

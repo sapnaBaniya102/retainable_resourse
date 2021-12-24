@@ -13,3 +13,7 @@ useHead({
 <template>
   <router-view />
 </template>
+
+function useHead(arg0: { title: string; meta: { name: string; content: string; }[]; }) {
+  throw new Error("Function not implemented.");
+}

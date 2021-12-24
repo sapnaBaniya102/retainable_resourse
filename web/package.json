@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build-js": "cross-env NODE_ENV=production vite-ssg build",
-    "dev": "vite --port 3333 --open",
+    "dev": "vite --port 8001 --open",
     "build-css": "npx tailwindcss -i ./temporary/vendor.css -o ./dist/output.css > /dev/null",
     "copy-assets": "mkdir -p ./dist/landing/ && cp -R ./public/landing/ ./dist/landing/ > /dev/null",
     "copy-html": "mkdir -p views/app && mv dist/*.html views/app/ > /dev/null",

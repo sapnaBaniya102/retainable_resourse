@@ -5,7 +5,10 @@ go 1.17
 require github.com/sujit-baniya/db v0.0.19
 
 require (
+	github.com/GehirnInc/crypt v0.0.0-20200316065508-bb7000b8a962 // indirect
+	github.com/alexedwards/argon2id v0.0.0-20211130144151-3585854a6387 // indirect
 	github.com/armon/go-radix v0.0.0-20180808171621-7fddfc383310 // indirect
+	github.com/asmcos/requests v0.0.0-20210319030608-c839e8ae4946 // indirect
 	github.com/bgentry/speakeasy v0.1.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/denisenkom/go-mssqldb v0.11.0 // indirect
@@ -17,6 +20,8 @@ require (
 	github.com/godror/godror v0.27.0 // indirect
 	github.com/gofiber/jwt/v3 v3.2.2 // indirect
 	github.com/gofiber/storage/memory v0.0.0-20210922062006-ff033d0e0e86 // indirect
+	github.com/gofiber/storage/postgres v0.0.0-20210922062006-ff033d0e0e86 // indirect
+	github.com/gofiber/storage/redis v0.0.0-20210922062006-ff033d0e0e86 // indirect
 	github.com/gofiber/template v1.6.20 // indirect
 	github.com/gofiber/utils v0.1.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.2.0 // indirect
@@ -35,6 +40,7 @@ require (
 	github.com/sujit-baniya/config v0.0.0-20211025141719-db67cad41a1f // indirect
 	github.com/sujit-baniya/fiber-view v0.0.2 // indirect
 	github.com/sujit-baniya/flash v0.1.3 // indirect
+	github.com/sujit-baniya/session v0.0.9 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect

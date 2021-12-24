@@ -6,14 +6,20 @@ declare module 'vue' {
   export interface GlobalComponents {
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
     CarbonDicomOverlay: typeof import('~icons/carbon/dicom-overlay')['default']
+    CarbonHome: typeof import('~icons/carbon/home')['default']
     CarbonLanguage: typeof import('~icons/carbon/language')['default']
+    CarbonLogin: typeof import('~icons/carbon/login')['default']
     CarbonLogoGithub: typeof import('~icons/carbon/logo-github')['default']
+    CarbonLogout: typeof import('~icons/carbon/logout')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonPedestrian: typeof import('~icons/carbon/pedestrian')['default']
+    CarbonSearch: typeof import('~icons/carbon/search')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
     CarbonWarning: typeof import('~icons/carbon/warning')['default']
     Footer: typeof import('./components/Footer.vue')['default']
+    Navbar: typeof import('./components/Navbar.vue')['default']
     README: typeof import('./components/README.md')['default']
+    Sidebar: typeof import('./components/Sidebar.vue')['default']
   }
 }
 

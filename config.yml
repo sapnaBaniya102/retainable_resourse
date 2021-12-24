@@ -13,9 +13,25 @@ server:
     debug: true
 
 view:
-    path: "web/views"
+    path: "web/views/app"
     extension: ".html"
     assets_path: "web/dist"
+
+migration:
+    dir: "migrations"
+    table: "migrations"
+
+
+
+database:
+    driver: "postgres"
+    host: "localhost"
+    username: "postgres"
+    password: "root"
+    db_name: "test"
+    port: 5432
+    connections: 100
+    idle_connections: 80
 
 cache:
     driver: "redis"

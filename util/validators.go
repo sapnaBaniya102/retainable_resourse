@@ -1,7 +1,7 @@
 package util
 
 import (
-	"awesomeProject/models"
+	"awesomeProject/modules/auth/models"
 	"crypto/rand"
 	"fmt"
 	"log"
@@ -13,8 +13,6 @@ import (
 
 	valid "github.com/asaskevich/govalidator"
 	"github.com/gofiber/fiber/v2"
-	"github.com/sujit-baniya/db"
-	"github.com/sujit-baniya/flash"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -37,6 +35,10 @@ type Mail struct {
 var p, _ = rand.Prime(rand.Reader, 16)
 var rxEmail = regexp.MustCompile(".+@.+\\..+")
 
+// var userProfile models.User_Profiles
+// var credential models.Userscredentials
+var user models.Users
+
 //ValidateRegister func validates the body of the user for registration
 
 func process(wg *sync.WaitGroup, intChannel <-chan int, resultChannel chan<- int) {
@@ -45,109 +47,139 @@ func process(wg *sync.WaitGroup, intChannel <-chan int, resultChannel chan<- int
 		resultChannel <- j
 	}
 }
-func Validation(c *fiber.Ctx) error {
 
-	var user models.User
-	user.Errors = make(map[string]string)
-	if err := c.BodyParser(&user); err != nil {
+// func Validation(c *fiber.Ctx) error {
 
-		log.Fatal(err)
-		mp := fiber.Map{
-			"message": err.Error(),
-		}
+// 	// user.Errors = make(map[string]string)
+// 	if err := c.BodyParser(&userProfile); err != nil {
 
-		return flash.WithError(c, mp).Redirect("/register")
-	}
-	match := rxEmail.Match([]byte(user.Email))
-	if user.Email == "" || !match {
+// 		log.Fatal(err)
+// 		mp := fiber.Map{
+// 			"message": err.Error(),
+// 		}
 
-		mp := fiber.Map{
-			"error":   true,
-			"message": "Please enter a valid email address",
-		}
-		return flash.WithError(c, mp).Redirect("/register")
+// 		return flash.WithError(c, mp).Redirect("/register")
+// 	}
+// 	if err := c.BodyParser(&credential); err != nil {
 
-		// user.Errors["Email"] = "Please enter a valid email address"
-	}
-	if user.Username == "" {
-		mp := fiber.Map{
-			"error":   true,
-			"message": "Please enter a valid username",
-		}
-		return flash.WithError(c, mp).Redirect("/register")
-		// user.Errors["Username"] = "please enter a valid username"
-	}
+// 		log.Fatal(err)
+// 		mp := fiber.Map{
+// 			"message": err.Error(),
+// 		}
 
-	if user.Password == "" || len(user.Password) < 8 {
-		mp := fiber.Map{
-			"error":   true,
-			"message": "Password must be greater than 8",
-		}
-		return flash.WithError(c, mp).Redirect("/register")
-		// user.Errors["Password"] = "Password must be greater than 8"
-	}
-	// Get first matched record
-	// err := db.DB.Where("email = ?", user.Email).First(&user)
-	// if err != nil {
-	// 	mp := fiber.Map{
-	// 		"error":   true,
-	// 		"message": "Email already exist",
-	// 	}
-	// 	return flash.WithError(c, mp).Redirect("/register")
-	// }
+// 		return flash.WithError(c, mp).Redirect("/register")
+// 	}
+// 	if err := c.BodyParser(&user); err != nil {
 
-	//creating hashed password
-	bytes, err1 := HashPassword(user.Password)
-	if err1 != nil {
-		fmt.Println("error with hashing")
-	}
-	user.Password = bytes
-	SendEmail(user)
-	// Insert Employee into database
+// 		log.Fatal(err)
+// 		mp := fiber.Map{
+// 			"message": err.Error(),
+// 		}
 
-	success := fiber.Map{
-		"success": true,
-		"message": "success",
-	}
-	return flash.WithSuccess(c, success).Redirect("/validation")
-}
-func CodeVerification(c *fiber.Ctx) error {
-	code := new(models.Validation)
-	users := new(models.User)
-	if err := c.BodyParser(code); err != nil {
-		panic(err)
-	}
-	fmt.Println(code.Code)
-	fmt.Println(p)
+// 		return flash.WithError(c, mp).Redirect("/register")
+// 	}
+// 	match := rxEmail.Match([]byte(user.Email))
+// 	if user.Email == "" || !match {
 
-	if code.Code.String() == p.String() {
-		mp := fiber.Map{
-			"success": true,
-			"message": "success",
-		}
-		db.DB.Create(&users)
-		return flash.WithSuccess(c, mp).Redirect("/success")
+// 		mp := fiber.Map{
+// 			"error":   true,
+// 			"message": "Please enter a valid email address",
+// 		}
+// 		return flash.WithError(c, mp).Redirect("/register")
 
-	} else {
-		success := fiber.Map{
-			"error":   true,
-			"message": "error",
-		}
-		return flash.WithError(c, success).Redirect("/validation")
-	}
+// 		// user.Errors["Email"] = "Please enter a valid email address"
+// 	}
+// 	if userProfile.Username == "" {
+// 		mp := fiber.Map{
+// 			"error":   true,
+// 			"message": "Please enter a valid username",
+// 		}
+// 		return flash.WithError(c, mp).Redirect("/register")
+// 		// user.Errors["Username"] = "please enter a valid username"
+// 	}
 
-}
+// 	if credential.Password == "" || len(credential.Password) < 8 {
+// 		mp := fiber.Map{
+// 			"error":   true,
+// 			"message": "Password must be greater than 8",
+// 		}
+// 		return flash.WithError(c, mp).Redirect("/register")
+// 		// user.Errors["Password"] = "Password must be greater than 8"
+// 	}
+// 	// Get first matched record
+// 	// err := db.DB.Where("email = ?", user.Email).First(&user)
+// 	// if err != nil {
+// 	// 	mp := fiber.Map{
+// 	// 		"error":   true,
+// 	// 		"message": "Email already exist",
+// 	// 	}
+// 	// 	return flash.WithError(c, mp).Redirect("/register")
+// 	// }
+
+// 	//creating hashed password
+// 	bytes, err1 := HashPassword(credential.Password)
+// 	if err1 != nil {
+// 		fmt.Println("error with hashing")
+// 	}
+// 	credential.Password = bytes
+// 	// SendEmail(user)
+// 	// Insert Employee into database
+
+// 	success := fiber.Map{
+// 		"success": true,
+// 		"message": "success",
+// 	}
+// 	return flash.WithSuccess(c, success).Redirect("/validation")
+// }
+
+// func CodeVerification(c *fiber.Ctx) error {
+// 	code := new(models.Validation)
+
+// 	if err := c.BodyParser(code); err != nil {
+// 		panic(err)
+// 	}
+
+// 	if code.Code.String() == p.String() {
+// 		mp := fiber.Map{
+// 			"success": true,
+// 			"message": "success",
+// 		}
+
+// 		err := db.DB.Create(&userProfile).Error
+// 		if err != nil {
+// 			fmt.Println(err)
+// 		}
+// 		user.UserId= userProfile.Base.ID
+// 		err1 := db.DB.Create(&user).Error
+// 		if err1 != nil {
+// 			return err1
+// 		}
+// 		err2 := db.DB.Create(&credential).Error
+// 		if err2 != nil {
+// 			fmt.Println(err2)
+// 		}
+// 		return flash.WithSuccess(c, mp).Redirect("/success")
+
+// 	} else {
+// 		success := fiber.Map{
+// 			"error":   true,
+// 			"message": "error",
+// 		}
+// 		return flash.WithError(c, success).Redirect("/validation")
+// 	}
+
+// }
 
 func HashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	return string(bytes), err
 }
-func SendEmail(emailData models.User) {
+func SendEmail(c *fiber.Ctx, emailData string) error {
 	//  send mail
 	sender := "skyrootmam123@gmail.com"
 
 	to := []string{
-		emailData.Email,
+		emailData,
 	}
 
 	p, _ = rand.Prime(rand.Reader, 16)
@@ -202,6 +234,7 @@ func SendEmail(emailData models.User) {
 			fmt.Println("email send successfull")
 		}
 	}
+	return c.JSON("test")
 }
 
 func BuildMessage(mail Mail) string {

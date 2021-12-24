@@ -8,9 +8,33 @@
     <title>Confirm Sign up Code </title>
 </head>
 <body class="bg-gray-50">
- <div class="sign-up-code-wrapper bg-white w-2/5 my-auto mx-auto">
-     <img src="/retainable-logo.png" alt="" srcset="">
-     <div></div>
+ <div class="sign-up-code-wrapper bg-white w-2/5 mx-auto rounded-xl shadow-lg shadow-dark-200">
+     <div class="bg-white mt-36 rounded-xl">
+         <div class="w-44 -mt-16 ml-48 absolute">
+        <img src="/retainable-logo.png" alt="" srcset="" class="" width="160">
+    </div>
+    <div class="pt-24 p-8 text-center">
+        {{if .error}}
+        <div class="w-10/12 mx-auto rounded-lg mb-4">
+            <div class="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3 rounded-lg" role="alert">
+               
+    
+                <p>{{ .message }}</p>
+            </div>
+        </div>
+        {{end}}
+        <h1 class="text-2xl font-semibold text-gray-700">Enter verification code</h1>
+        <h3 class=" text-base font-light ">to confirm your email</h3>
+        <img src="/email_logo.png" alt="" srcset="" width="80" class="m-5 ml-52">
+        <h4 class="text-md text-gray-500">Please enter the verification code that was sent to producer@gmail.com within 20 minutes.</h4>
+        <form action="" method="post">
+            <input type="number" name="code" id="" placeholder="Enter 5-digit code" class="w-4/5 h-10 border border-gray-400 my-7 px-3 rounded-lg" required>
+            <button type="submit" class="w-4/5 bg-blue-600 text-white h-10 -mt-2 rounded-lg font-medium text-md" name="submit">Verify</button>
+        </form>
+        
+       <h3 class="text-sm text-blue-500 mt-4">Not in inbox?  <a href="#">Resend</a></h3>
+    </div>
+     </div>
  </div>
 </body>
 </html>

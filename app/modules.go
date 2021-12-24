@@ -20,7 +20,7 @@ type Server struct {
 }
 
 type View struct {
-	Path       string `yaml:"path" env-default:"web/views"`
+	Path       string `yaml:"path" env-default:"web/views/app"`
 	Extension  string `yaml:"extension" env-default:".html"`
 	AssetsPath string `yaml:"assets_path" env-default:"web/dist"`
 }
@@ -32,4 +32,18 @@ type Cache struct {
 	DB          string `yaml:"db" env:"CACHE_DB" env-default:"0"`
 	Concurrency string `yaml:"concurrency" env:"CACHE_CONCURRENCY" env-default:"100"`
 	Port        int    `yaml:"port" env:"CACHE_PORT" env-default:"6379"`
+}
+type Migrations struct {
+	Dir   string `yaml:"dir" env:"MIGRATIONS_DR" env-default:"migrations"`
+	Table string `yaml:"table" env:"TABLE" env-default:"migrations"`
+}
+type Database struct {
+	Driver     string `yaml:"driver" env:"DB_DRIVER" env-default:"postgres"`
+	Host       string `yaml:"host" env:"DB_HOST" env-default:"localhost"`
+	Username   string `yaml:"username" env:"DB_USER" env-default:"postgres"`
+	Password   string `yaml:"password" env:"DB_PASS" env-default:"root"`
+	DBName     string `yaml:"db_name" env:"DB_NAME" env-default:"test"`
+	Port       int    `yaml:"port" env:"DB_PORT" env-default:"5432"`
+	MaxOpenCon int    `yaml:"connections" env:"DB_CONNECTIONS" env-default:"100"`
+	MaxIdleCon int    `yaml:"idle_connections" env:"DB_IDLE_CONNECTIONS" env-default:"80"`
 }
