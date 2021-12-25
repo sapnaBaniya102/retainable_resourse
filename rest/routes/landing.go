@@ -19,6 +19,11 @@ func LandingRoutes(app fiber.Router) {
 
 	app.Get("/index",
 		controllers.RegisterGet)
+
+	app.Get("/login",
+		middlewares.RedirectOnLoggedInUser("/app"),
+		controllers.LoginGet,
+	)
 	app.Get("/register",
 		middlewares.RedirectOnLoggedInUser("/app"),
 		controllers.RegisterGet,
@@ -30,6 +35,9 @@ func LandingRoutes(app fiber.Router) {
 	)
 	app.Get("/success", func(c *fiber.Ctx) error {
 		return c.SendString("success")
+	})
+	app.Get("/login", func(c *fiber.Ctx) error {
+		return c.SendString("Success")
 	})
 
 }

@@ -31,5 +31,5 @@ func RegisterPost(c *fiber.Ctx) error {
 		"success": true,
 		"message": "success",
 	}
-	return flash.WithSuccess(c, mp).Redirect("/verify_email")
+	return flash.WithSuccess(c, mp).Redirect("/login")
 }

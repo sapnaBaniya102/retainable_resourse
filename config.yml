@@ -28,7 +28,7 @@ database:
     host: "localhost"
     username: "postgres"
     password: "root"
-    db_name: "test"
+    db_name: "retainabledb"
     port: 5432
     connections: 100
     idle_connections: 80

@@ -26,6 +26,8 @@ require (
 	github.com/gofiber/utils v0.1.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.2.0 // indirect
 	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
+	github.com/gookit/filter v1.1.2 // indirect
+	github.com/gookit/goutil v0.3.12 // indirect
 	github.com/gorilla/schema v1.1.0 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-multierror v1.0.0 // indirect
@@ -34,6 +36,7 @@ require (
 	github.com/mattn/go-runewidth v0.0.2 // indirect
 	github.com/mattn/go-sqlite3 v1.14.8 // indirect
 	github.com/mitchellh/cli v1.0.0 // indirect
+	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/olekukonko/tablewriter v0.0.0-20170122224234-a0225b3f23b5 // indirect
 	github.com/posener/complete v1.1.1 // indirect
 	github.com/sujit-baniya/cache v0.0.12 // indirect
@@ -58,6 +61,7 @@ require (
 	github.com/gofiber/fiber v1.14.6
 	github.com/gofiber/fiber/v2 v2.23.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
+	github.com/gookit/validate v1.2.11
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.10.1 // indirect

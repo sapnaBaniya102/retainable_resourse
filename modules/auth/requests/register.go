@@ -31,8 +31,11 @@ func (l *Register) Signup() (*Register, error) {
 	}
 
 	profile := models.Profile{
+
 		FirstName: l.FirstName,
 		LastName:  l.LastName,
+		UserName:  l.Username,
+		Email:     l.Email,
 	}
 	user := models.Users{
 		Email: l.Email,

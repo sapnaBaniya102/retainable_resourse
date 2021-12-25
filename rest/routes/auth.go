@@ -8,6 +8,10 @@ import (
 )
 
 func AuthRoutes(r fiber.Router) {
+	r.Post("/login",
+		middlewares.ValidateLoginPost("/login"),
+		controllers.LoginPost,
+	)
 	r.Post("/register",
 		middlewares.ValidateRegisterPost("/register"),
 		controllers.RegisterPost,
