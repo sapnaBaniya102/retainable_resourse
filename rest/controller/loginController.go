@@ -1,9 +1,8 @@
-package controllers
+package controller
 
 import (
-	"fmt"
+	middlewares "awesomeProject/rest/middleware"
 	"sync"
-	"verify/rest/middlewares"
 
 	"github.com/gofiber/fiber/v2"
 	view "github.com/sujit-baniya/fiber-view"
@@ -17,7 +16,9 @@ func LoginGet(c *fiber.Ctx) error {
 	defer mu.Unlock()
 	data := flash.Get(c)
 	data["title"] = "Login | "
-	return view.Render(c, "auth/login", view.Append(c, data))
+	return view.Render(c, "login", view.Append(c, data))
+}
+
 // 	data := flash.Get(c)
 // 	fmt.Println(view.Template())
 // 	return view.Render(c, "login", data)
@@ -38,10 +39,7 @@ func LoginPost(c *fiber.Ctx) error { //nolint:wsl
 
 func LogoutPost(c *fiber.Ctx) error { //nolint:nolintlint,wsl
 	if middlewares.IsLoggedIn(c) {
-		err := middlewares.Logout(c)
-		if err != nil {
-			panic(err)
-		}
+
 	}
 	c.Set("X-DNS-Prefetch-Control", "off")
 	c.Set("Pragma", "no-cache")

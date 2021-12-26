@@ -1,9 +1,13 @@
 package auth
 
 import (
+	"awesomeProject/modules/auth/models"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/sujit-baniya/session"
 )
+
+var LoggedInBucket models.LoginBucket
 
 func IsLoggedIn(c *fiber.Ctx) bool {
 	userID := c.Locals("user_id")

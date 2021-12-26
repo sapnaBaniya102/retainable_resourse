@@ -42,7 +42,7 @@ type Database struct {
 	Host       string `yaml:"host" env:"DB_HOST" env-default:"localhost"`
 	Username   string `yaml:"username" env:"DB_USER" env-default:"postgres"`
 	Password   string `yaml:"password" env:"DB_PASS" env-default:"root"`
-	DBName     string `yaml:"db_name" env:"DB_NAME" env-default:"retainabledb"`
+	DBName     string `yaml:"db_name" env:"DB_NAME" env-default:"test"`
 	Port       int    `yaml:"port" env:"DB_PORT" env-default:"5432"`
 	MaxOpenCon int    `yaml:"connections" env:"DB_CONNECTIONS" env-default:"100"`
 	MaxIdleCon int    `yaml:"idle_connections" env:"DB_IDLE_CONNECTIONS" env-default:"80"`

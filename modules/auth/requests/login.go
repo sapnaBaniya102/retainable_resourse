@@ -1,6 +1,8 @@
 package requests
 
 import (
+	"awesomeProject/util/mail"
+
 	"github.com/gookit/validate"
 )
 

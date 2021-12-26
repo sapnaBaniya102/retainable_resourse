@@ -1,21 +1,17 @@
-package middlewares
+package middleware
 
 import (
+	"awesomeProject/modules/auth"
+	"awesomeProject/modules/auth/models"
+	"awesomeProject/modules/auth/requests"
+	"awesomeProject/util/mail"
 	"fmt"
-	"strconv"
-	"strings"
 	"time"
-	"verify/modules/auth"
-	"verify/modules/auth/models"
-	"verify/modules/auth/requests"
 
-	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gookit/validate"
-	"github.com/sujit-baniya/crypt"
 	"github.com/sujit-baniya/db"
 	"github.com/sujit-baniya/flash"
-	"github.com/sujit-baniya/mail"
 	"github.com/sujit-baniya/session"
 )
 
@@ -60,7 +56,6 @@ func Login(c *fiber.Ctx, rememberMe bool) error {
 		User:    loginResponse.User,
 		Profile: loginResponse.Profile,
 		Domain:  mail.GetDomainOfEmail(loginResponse.User.Email),
-		Account: loginResponse.Account,
 	}
 
 	values := fiber.Map{
@@ -117,57 +112,4 @@ func IsLoggedIn(c *fiber.Ctx) bool {
 	}
 	c.Locals("user_id", userID)
 	return true
-}
-
-func AuthAPI(c *fiber.Ctx) error {
-	authorization := c.Get(fiber.HeaderAuthorization)
-	key := strings.ReplaceAll(authorization, "Bearer ", "")
-	validAPIKey := crypt.ValidateApiKey(key)
-	if validAPIKey.Error != nil {
-		return c.Status(401).JSON(fiber.Map{
-			"message": validAPIKey.Error.Error(),
-			"error":   true,
-		})
-	}
-	if !validAPIKey.Valid {
-		return c.Status(401).JSON(fiber.Map{
-			"message": "Invalid Attempt",
-			"error":   true,
-		})
-	}
-	uID, _ := strconv.Atoi(validAPIKey.UserID)
-	c.Locals("user_id", uint(uID))
-	c.Locals("is_api", true)
-	tmp, err := auth.APILoggedInBucket.Get(validAPIKey.UserID)
-	if err != nil {
-		return c.Status(406).JSON(fiber.Map{
-			"message": "Unable to process your request",
-			"error":   true,
-		})
-	}
-	if tmp == nil {
-		userWithProfile, err := auth.GetVerifiedUserByID(validAPIKey.UserID)
-		if err != nil {
-			return c.Status(406).JSON(fiber.Map{
-				"message": "Unable to process your request",
-				"error":   true,
-			})
-		}
-
-		bt, err := json.Marshal(userWithProfile)
-		if err != nil {
-			return c.Status(406).JSON(fiber.Map{
-				"message": "Unable to process your request",
-				"error":   true,
-			})
-		}
-		err = auth.APILoggedInBucket.Set(validAPIKey.UserID, bt, time.Minute)
-		if err != nil {
-			return c.Status(406).JSON(fiber.Map{
-				"message": "Unable to process your request",
-				"error":   true,
-			})
-		}
-	}
-	return c.Next()
 }
